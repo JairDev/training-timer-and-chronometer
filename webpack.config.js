@@ -11,14 +11,14 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({  
       template: "./src/index.html",
-      // minify: {
-      //   collapseWhitespace: true,
-      //   removeComments: true,
-      //   removeRedundantAttributes: true,
-      //   removeScriptTypeAttributes: true,
-      //   removeStyleLinkTypeAttributes: true,
-      //   useShortDoctype: true
-      // }
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
+      }
     }),
     new MiniCssExtractPlugin({
       filename: "css/style.css",
@@ -78,40 +78,4 @@ module.exports = {
       }
     ],
   },
-
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.(sa|sc|c)ss$/,
-  //       use: [
-  //         MiniCSSExtractPlugin.loader,
-  //         "css-loader",
-  //         "sass-loader"
-  //       ]
-  //     },
-  //     {
-  //       test: /\.(jpg|png|jpeg)$/,
-  //       use: [
-  //         {
-  //           loader: "file-loader",
-  //           options: {
-  //             name: "[name].[ext]",
-  //             outputPath: "./static/",
-  //             useRelativePath: true,
-  //           }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       test: /\.m?js$/,
-  //       exclude: /(node_modules|bower_components)/,
-  //       use: {
-  //         loader: 'babel-loader',
-  //         options: {
-  //           presets: ['@babel/preset-env'],
-  //         }
-  //       }
-  //     }
-  //   ]
-  // }
-}
+};
