@@ -86,6 +86,7 @@ document.addEventListener("click", e => {
 
   if (e.target === items.buttonReset) {
     chrono.chronometer(items.buttonReset.dataset.time);
+    
    
   }
 });
