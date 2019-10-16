@@ -1,127 +1,136 @@
-import { displayNumberTime, items, displayNumSeries } from "./ui.js";
-// class containing countdown methods of workout time, rest time and chronometer;
+import { timeDisplay, items, displayNumSeries } from "./ui.js";
 
 export class Timers {
-  constructor(countdown, countForward) {
-    this.countdown = countdown;
-    this.countForward = countForward;
+  constructor(secondsWork, secondsRest, cycleSet = 1, prepare = 5) {
+    this.running = false;
+    this.intervalPrepare;
+    this.intervalWork;
+    this.intervalRest;
+    this.secondsWork = secondsWork;
+    this.secondsRest = secondsRest;
+    this.currentCycle = 0;
+    this.cycleSet = cycleSet;
+    this.prepare = prepare;
   }
 
-  chronometer(seconds) {
-    this.seconds = seconds;
-    this.date = Date.now();
-    this.now = this.date - this.seconds * 1000;
+  prepareCount() {
+    let displayPrepare = timeDisplay(this.prepare);
+    displayPrepare.displayTime();
 
-    clearInterval(this.countForward); //delete running time
-    this.countForward = setInterval(() => {
+    items.displayTimeCount.style.color = "yellow";
+    items.actionTextDisplay.textContent = "Prepare";
+    items.actionTextDisplay.classList.add("active");
+
+    this.prepare -= 1;
+    if (this.prepare < 0) {
+      clearInterval(this.intervalPrepare);
+      this.countdownWork();
+      return;
+    }
+  }
+
+  countdownWork() {
+    this.date = Date.now();
+    this.now = this.date + this.secondsWork * 1000;
+
+    let displayNumberWork = timeDisplay(this.secondsWork);
+    displayNumberWork.displayTime();
+    items.actionTextDisplay.textContent = "Training";
+
+    this.intervalWork = setInterval(() => {
+      this.secondsLeftWork = Math.round((this.now - Date.now()) / 1000);
+      if (this.secondsLeftWork < 0) {
+        this.currentCycle += 1;
+        
+        displayNumSeries(this.currentCycle);
+        clearInterval(this.intervalWork);
+        this.countdownRest(this.secondsRest);
+        return;
+      } else if (this.currentCycle === this.cycleSet) {
+        clearInterval(this.intervalWork);
+      }
+
+      displayNumberWork = timeDisplay(this.secondsLeftWork);
+      displayNumberWork.displayTime();
+    }, 1000);
+  }
+
+  countdownRest() {
+    this.date = Date.now();
+    this.now = this.date + this.secondsRest * 1000;
+
+    let displayRest = timeDisplay(this.secondsRest);
+    displayRest.displayTime();
+    items.displayTimeCount.style.color = "rgb(238, 66, 102)";
+    items.actionTextDisplay.textContent = "Rest";
+
+    this.intervalRest = setInterval(() => {
+      this.secondsLeftRest = Math.round((this.now - Date.now()) / 1000);
+   
+      if (this.secondsLeftRest < 0) {
+        clearInterval(this.intervalRest);
+        this.countdownWork(this.secondsWork);
+        return;
+      } else if (this.currentCycle === this.cycleSet) {
+        displayRest = timeDisplay(0);
+        displayRest.displayTime();
+        clearInterval(this.intervalRest);
+        return;
+      }
+      displayRest = timeDisplay(this.secondsLeftRest);
+      displayRest.displayTime();
+      items.displayTimeCount.style.color = "rgb(238, 66, 102)";
+     
+    }, 1000);
+  }
+
+  startFit() {
+    if (!this.running && this.secondsWork) {
+      clearInterval(this.intervalPrepare);
+      this.running = true;
+      this.intervalPrepare = setInterval(this.prepareCount.bind(this), 1000);
+    }
+  }
+  stop() {
+    for (let i = 0; i < 100; i++) {
+      clearInterval(i);
+    }
+    this.running = false;
+  }
+}
+
+export class Chronometer {
+  constructor() {
+    this.run = false;
+    this.intervalChrono;
+    this.secondsChrono = 0;
+    this.secondsForward = 0;
+    this.pause = true;
+  }
+
+  chrono() {
+    this.date = Date.now();
+    this.now = this.date - this.secondsChrono * 1000;
+    this.intervalChrono = setInterval(() => {
       this.secondsForward = Math.round((Date.now() - this.now) / 1000);
-      let displayNumberChro = displayNumberTime(this.secondsForward);
-      displayNumberChro.displayTimerChrono();
-    }, 1000);
-
-    items.buttonStop.addEventListener("click", () => {
-      //stop the chronometer time
-      this.secondsStop = this.secondsForward;
-      if (this.secondsStop > seconds) {
-        clearInterval(this.countForward);
-      }
-    });
-
-    items.buttonRestart.addEventListener("click", () => {
-      //restart the chronometer time
-      this.secondsRestart = this.secondsForward;
-      if (this.secondsRestart > seconds) {
-        this.chronometer(this.secondsRestart);
-      }
-    });
-  }
-
-  countdownWork(seconds, count, series, wait) {
-    this.seconds = seconds;
-    this.count = count;
-    this.series = series;
-    this.wait = wait;
-    this.date = Date.now();
-    this.now = this.date + this.seconds * 1000;
-
-    let displayNumberWork = displayNumberTime(this.seconds);
-    displayNumberWork.displayCountWork();
-
-    this.countdown = setInterval(() => {
-      this.secondsLeft = Math.round((this.now - Date.now()) / 1000);
-      if (this.secondsLeft < 0 && count < series) {
-        //if series, repeat cycle //
-        displayNumSeries(count);
-        items.sound.play();
-        setTimeout(() => {
-          count++;
-          this.countdownWork(seconds, count, series, wait);
-        }, wait);
-        clearInterval(this.countdown);
-        return;
-      } else if (this.secondsLeft < 0 && count <= series) {
-        //finish cycle//
-        items.buttonTimeFitness.forEach(butt => {
-          butt.classList.remove("active");
-        });
-        items.sound.play();
-        displayNumSeries(count);
-        clearInterval(this.countdown);
-        return;
-      } else if (this.secondsLeft < 0 && !series) {
-        // not cycle //
-        items.buttonTimeFitness.forEach(butt => {
-          butt.classList.remove("active");
-        });
-        items.sound.play();
-        clearInterval(this.countdown);
-        return;
-      }
-      displayNumberWork = displayNumberTime(this.secondsLeft);
-      displayNumberWork.displayCountWork();
+      console.log(this.secondsForward);
     }, 1000);
   }
 
-  countdownRest(seconds, countrest, seriesrest, waitrest) {
-    this.seconds = seconds;
-    this.countrest = countrest;
-    this.seriesrest = seriesrest;
-    this.waitrest = waitrest;
-    this.date = Date.now();
-    this.now = this.date + this.seconds * 1000;
+  startChrono() {
+    if (!this.run) {
+      this.run = true;
+      this.chrono();
+    }
+    console.log(this.run);
+  }
 
-    let displayNumberRest = displayNumberTime(this.seconds);
-    displayNumberRest.displayCountRest();
-
-    this.countdown = setInterval(() => {
-      this.secondsLeft = Math.round((this.now - Date.now()) / 1000);
-      if (this.secondsLeft < 0 && countrest < seriesrest) {
-        //if series, repeat cycle //
-        setTimeout(() => {
-          countrest++;
-          this.countdownRest(seconds, countrest, seriesrest, waitrest);
-        }, waitrest);
-
-        clearInterval(this.countdown);
-        return;
-      } else if (this.secondsLeft < 0 && countrest <= seriesrest) {
-        //finish cycle//
-        items.buttonTimeCountDownRest.forEach(butt => {
-          butt.classList.remove("active");
-        });
-        clearInterval(this.countdown);
-        return;
-      } else if (this.secondsLeft < 0 && !seriesrest) {
-        // not cycle //
-        items.buttonTimeCountDownRest.forEach(butt => {
-          butt.classList.remove("active");
-        });
-        clearInterval(this.countdown);
-        return;
+  stopChrono() {
+    if (this.run) {
+      console.log("method stop");
+      for (let i = 0; i < 100; i++) {
+        clearInterval(i);
       }
-
-      displayNumberRest = displayNumberTime(this.secondsLeft);
-      displayNumberRest.displayCountRest();
-    }, 1000);
+    }
   }
 }
