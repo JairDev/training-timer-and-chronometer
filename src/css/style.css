@@ -1,0 +1,347 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #171d1b;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100vh;
+  overflow: hidden;
+}
+.main .parent_button_init {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 25vh;
+  padding: 1rem;
+}
+.main .parent_button_init .mode-text {
+  color: white;
+  font-size: 3vw;
+  letter-spacing: 0.2rem;
+  transition: all linear 0.2s;
+}
+.main .parent_button_init .button-parent {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+}
+.main .parent_button_init .button-parent div:first-child {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 65px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+  transform: scale(1);
+}
+.main .parent_button_init .button-parent div:last-child {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 65px;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+}
+.main .parent_button_init .button-parent .button_chrono::after {
+  content: "";
+  background-image: url("../img/reloj.png");
+  background-size: cover;
+  width: 80%;
+  height: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 10;
+}
+.main .parent_button_init .button-parent .button_count::after {
+  content: "";
+  background-image: url("../img/2227543.png");
+  background-size: cover;
+  width: 80%;
+  height: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+.main .parent_display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+  position: relative;
+}
+.main .parent_display .panel-fit {
+  box-shadow: 5px 0px 10px -2px #121213;
+  border-radius: 0px 7px 7px 0px;
+}
+.main .parent_display .panel-rest {
+  box-shadow: -5px 0px 20px -2px #121213;
+  border-radius: 7px 0px 0px 7px;
+}
+.main .parent_display .parent_controls {
+  background-color: rgba(211, 211, 211, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 20%;
+  padding: 0 0.5rem;
+}
+.main .parent_display .parent_controls .h4_time {
+  color: white;
+  font-size: 1.8vw;
+  width: 100%;
+  text-align: center;
+}
+.main .parent_display .parent_controls .time_text {
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.3rem;
+  letter-spacing: 0.1rem;
+  width: 100%;
+}
+.main .parent_display .parent_controls .time_text .button_time {
+  background-color: #302f2f;
+  border: 1px solid #c4cbca;
+  border-radius: 30px;
+  width: 55px;
+  height: 23px;
+}
+.main .parent_display .parent_controls .time_text .button_time button {
+  border: 0;
+  border-radius: 500px;
+  display: block;
+  background-color: #ee4266;
+  cursor: pointer;
+  width: 50%;
+  height: 100%;
+  transition: 0.3s linear;
+}
+.main .parent_display .parent_controls .time_text .button_time .button_slide.active {
+  transform: translateX(100%);
+  background-color: #3cbbb1;
+}
+.main .parent_display .parent_controls .parent_ready .form-style {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.main .parent_display .parent_controls .parent_ready .button_ready {
+  background-color: #3cbbb1;
+  border: 0;
+  border-radius: 50%;
+  color: #f0f0f0;
+  cursor: pointer;
+  align-self: center;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+}
+.main .parent_display .parent_controls .parent_ready input {
+  background-color: #171d1b;
+  border: 0;
+  border: 1px solid #c2c2c2;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  width: 60%;
+  padding: 0.7rem 0rem 0.7rem 0.4rem;
+}
+.main .parent_display .parent_number_series {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+}
+.main .parent_display .parent_number_series .series {
+  color: white;
+  font-size: 2vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-self: center;
+  width: 60%;
+  height: 7vh;
+  transition: all linear 0.2s;
+  opacity: 0;
+  margin-bottom: 8rem;
+}
+.main .parent_display .parent_number_series .series form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+.main .parent_display .parent_number_series .series form input {
+  border: 0;
+  border: 1px solid #c2c2c2;
+  background-color: #171d1b;
+  border-radius: 3px;
+  color: white;
+  font-size: 1rem;
+  width: 45%;
+  height: 70%;
+  padding: 0.7rem 0rem 0.7rem 0.4rem;
+}
+.main .parent_display .parent_number_series .series form button {
+  background-color: #3cbbb1;
+  border: 0;
+  border-radius: 500px;
+  color: #f0f0f0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.3rem;
+}
+.main .parent_display .parent_number_series .series h2 {
+  color: white;
+}
+.main .parent_display .parent_number_series .series.active {
+  opacity: 1;
+}
+.main .parent_display .parent_controls.panel-fit {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all linear 0.3s;
+}
+.main .parent_display .parent_controls.panel-fit.active {
+  transform: translateX(0%);
+  opacity: 1;
+}
+.main .parent_display .parent_controls.panel-rest {
+  transform: translateX(100%);
+  transition: all linear 0.3s;
+  opacity: 0;
+}
+.main .parent_display .parent_controls.panel-rest.active {
+  transform: translateX(0%);
+  opacity: 1;
+}
+.main .parent_display .display_number_chrono {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  color: white;
+  font-size: 10vw;
+  opacity: 1;
+  position: absolute;
+  transition: all linear 0.2s;
+}
+.main .parent_display .display_number_chrono.inactive {
+  opacity: 0;
+}
+.main .parent_display .display_number_count {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  color: white;
+  font-size: 8vw;
+  opacity: 1;
+  position: absolute;
+  transition: all linear 0.2s;
+}
+.main .parent_display .display_number_count.inactive {
+  opacity: 0;
+}
+.main .parent_display .display_number_rest {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  color: white;
+  font-size: 6vw;
+  opacity: 0;
+  transition: all linear 0.2s;
+}
+.main .parent_display .display_number_rest.active {
+  opacity: 1;
+}
+.main .parent_stop_start {
+  display: flex;
+  color: white;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 30%;
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 0.3ch;
+  margin-bottom: 2rem;
+  transition: all linear 0.2s;
+  transform: translateY(0);
+}
+.main .parent_stop_start div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+  position: relative;
+  z-index: 1;
+}
+.main .parent_stop_start div img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+.main .parent_stop_start .butt_control {
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 60px;
+  height: 30px;
+}
+.main .parent_stop_start .reset {
+  background-color: #3cbbb1;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  bottom: 5px;
+  z-index: 5;
+}
+.main .parent_stop_start .reset::after {
+  content: "";
+  background-image: url("../img/on-off.png");
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.main .parent_stop_start .stop {
+  background-color: #ee4266;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.main .parent_stop_start .restart {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.main .parent_stop_start.inactive {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+/*# sourceMappingURL=style.css.map */
