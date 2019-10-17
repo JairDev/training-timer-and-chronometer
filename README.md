@@ -10,5 +10,8 @@ My first javascript project !
    * You can configure how many training cycles you need.
    * You can set rest time and work time.
    * Alert sound at the end of a cycle.
+   
+   
+You can see how it works here https://trainingtimerapp.netlify.com
 
           
