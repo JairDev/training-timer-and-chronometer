@@ -1,12 +1,12 @@
 export const items = {
-  sound: document.querySelector('.audio'),
-  
+  sound: document.querySelector(".audio"),
+
   buttonChrono: document.querySelector(".button_chrono"),
   buttonFitness: document.querySelector(".button_count"),
- 
+
   buttonTimeFitness: document.querySelectorAll(".button_slide.down"),
   buttonTimeCountDownRest: document.querySelectorAll(".button_slide.rest"),
-  
+
   readyTimeFitness: document.querySelector(".button_ready.chrono"),
   readyCountDownRest: document.querySelector(".button_ready.rest"),
 
@@ -20,9 +20,9 @@ export const items = {
   valueInputFitness: document.querySelector(".input-down"),
   valueInputCountDownRest: document.querySelector(".input-rest"),
 
-  buttonStop: document.querySelector(".stop"),
+  buttonStart: document.querySelector(".start"),
   buttonReset: document.querySelector(".reset"),
-  
+
   displayTextMode: document.querySelector(".mode-text"),
   displayTimeChrono: document.querySelector(".display_number_chrono"),
   displayTimeCount: document.querySelector(".display_number_count"),
@@ -50,7 +50,6 @@ export const fitnessButton = () => {
 
   items.parentFitnessPanel.classList.add("active");
   items.parentFitnessRestPanel.classList.add("active");
-  
 };
 
 //display items if click on button chrono
@@ -98,7 +97,7 @@ export const timeDisplay = function(
       items.displayTimeCount.style.color = "rgb(60, 187, 177)";
     },
 
-    chronoTimeDisplay() {
+    chronoDisplayTime() {
       this.minutes = Math.floor(this.seconds / 60);
       this.hours = Math.floor(this.minutes / 60);
       this.forwardSeconds = this.seconds % 60;
@@ -113,4 +112,3 @@ export const timeDisplay = function(
     }
   };
 };
-

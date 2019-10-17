@@ -5,7 +5,7 @@ import "./static/reloj.png";
 import "./static/reloj.png";
 import "./sound/BELL1.mp3";
 
-import { Timers, Chronometer } from "./app/js/chro-count.js";
+import { Timers, startChrono, reset } from "./app/js/chro-count.js";
 
 import {
   items,
@@ -51,7 +51,6 @@ document.addEventListener("click", e => {
       butt.classList.remove("active");
     } else if (e.target === butt && butt.matches(".rest")) {
       butt.classList.add("active");
-
       timeLogRest = butt.dataset.time;
       let timeRest = new Timers(timeLogFitness, timeLogRest, cycleFit);
     }
@@ -61,7 +60,7 @@ document.addEventListener("click", e => {
     modeFitness = true;
     fitnessButton();
     let displayNumberChro = timeDisplay(0);
-    displayNumberChro.chronoTimeDisplay();
+    displayNumberChro.chronoDisplayTime();
     items.buttonFitness.style.borderBottom = "2px solid rgb(60, 187, 177)";
     items.buttonChrono.style.borderBottom = "none";
     modeChrono = false;
@@ -75,20 +74,17 @@ document.addEventListener("click", e => {
     modeFitness = false;
   }
 
-  if (e.target === items.buttonReset) {
+  if (e.target === items.buttonStart) {
     if (modeChrono) {
-      let readyChrono = new Chronometer();
-      readyChrono.startChrono();
+      startChrono();
     } else if (modeFitness) {
       let ready = new Timers(timeLogFitness, timeLogRest, cycleFit);
       ready.startFit();
     }
   }
-
-  if (e.target === items.buttonStop) {
+  if (e.target === items.buttonReset) {
     if (modeChrono) {
-      let chronoStop = new Chronometer();
-      chronoStop.stopChrono();
+      reset();
     } else if (modeFitness) {
       let stopFit = new Timers(timeLogFitness, timeLogRest, cycleFit);
       stopFit.stop();

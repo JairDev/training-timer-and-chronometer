@@ -345,10 +345,19 @@ body {
       font-size: 4vw;
       opacity: 0;
       transition: all linear .2s;
+      animation: action .5s linear infinite alternate-reverse;
     }
     & .action_text_display.active {
       opacity: 1;
     }
+
+    @keyframes action {
+      0%{transform: scale(1.0);}
+      100%{transform: scale(1.4);}
+      
+    }
+
+    
 
   }
   
@@ -391,7 +400,7 @@ body {
       height: 30px;
       
     }
-    & .reset {
+    & .start {
       background-color: rgb(60, 187, 177);
       border: 0;
       border-radius: 50%;
@@ -402,7 +411,7 @@ body {
       bottom: 5px;
       z-index: 5;
     }
-    .reset::after {
+    .start::after {
       content: '';
       background-image: url("../static/on-off.png");
       background-size: cover;
@@ -412,7 +421,7 @@ body {
       width: 100%;
       height: 100%;
     }
-    & .stop {
+    & .reset {
       background-color: rgb(238, 66, 102);
       border-radius: 50%;
       width: 30px;
