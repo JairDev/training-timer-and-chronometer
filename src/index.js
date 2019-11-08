@@ -94,16 +94,16 @@ document.addEventListener("click", e => {
 
 items.formTimeFitness.addEventListener("submit", e => {
   let value = items.valueInputFitness.value;
-  timeWork.countdownWork(value * 60);
-
+  timeLogFitness = value * 60;
+  items.displayTimeInputFit.textContent = `${value}m`;
   items.formTimeFitness.reset();
   e.preventDefault();
 });
 
 items.formCountDownRest.addEventListener("submit", e => {
   let value = items.valueInputCountDownRest.value;
-  timeRest.countdownRest(value * 60);
-
+  timeLogRest = value * 60;
+  items.displayTimeInputRest.textContent = `${value}m`;
   items.formCountDownRest.reset();
   e.preventDefault();
 });

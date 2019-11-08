@@ -23,12 +23,14 @@ export const items = {
   buttonStart: document.querySelector(".start"),
   buttonReset: document.querySelector(".reset"),
 
+  displaySeries: document.querySelector(".series"),
   displayTextMode: document.querySelector(".mode-text"),
   displayTimeChrono: document.querySelector(".display_number_chrono"),
   displayTimeCount: document.querySelector(".display_number_count"),
   actionTextDisplay: document.querySelector(".action_text_display"),
   displayParentButtChrono: document.querySelector(".parent_stop_start"),
-  displaySeries: document.querySelector(".series"),
+  displayTimeInputFit: document.querySelector('.time_input_fit'),
+  displayTimeInputRest: document.querySelector('.time_input_rest'),
 
   parentFitnessPanel: document.querySelector(".parent_controls.panel-fit"),
   parentFitnessRestPanel: document.querySelector(".parent_controls.panel-rest")
