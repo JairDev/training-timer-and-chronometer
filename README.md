@@ -12,6 +12,6 @@ My first javascript project !
    * Alert sound at the end of a cycle.
    
    
-You can see how it works here https://trainingtimerapp.netlify.com
+You can see how it works here https://trainingtimerapp.netlify.app
 
           
